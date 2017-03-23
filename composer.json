@@ -1,0 +1,30 @@
+{
+    "name": "msonowal/laraxchange",
+    "description": "This provides multi currency conversions in laravel app by using http://fixer.io/ API and cache the conversion rates by using cache driver specified and updates the cache for the app periodically by the command bus in laravel way",
+    "type": "library",
+    "require": {
+        "php": ">=7.0",
+        "illuminate/support": "~5.4",
+        "illuminate/cache": "~5.4",
+        "guzzlehttp/guzzle": "~6.2",
+        "illuminate/session": "5.1.*|5.2.*|5.3.*|5.4.*",
+        "torann/geoip": "^1.0",
+        "geoip2/geoip2": "~2.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Msonowal\\Laraxchange\\": "src"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Manash Jyoti Sonowal",
+            "email": "manash149@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable"
+}
