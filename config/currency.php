@@ -13,5 +13,5 @@ return [
     ],
 
     'cache_key'     =>  'currency_conversions_list',
-    'cache_expiry'  =>  60*48, //in minutes default set to 48 hour
+    'cache_expiry'  =>  env('CURRENCY_CACHE', 60*72), //in minutes default set to 48 hour
 ];

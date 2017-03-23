@@ -29,8 +29,12 @@ class CacheConversionRates extends Command
      */
     public function fire()
     {
-        $this->output->write("Starting update for Currency API to cache...");
-        Currency::updateRates();
-        $this->output->writeln("<info> Update complete</info>");
+        $this->output->write("Starting update for Currency API to cache...\n");
+        foreach (getAvailableCurrencies() as $currency_code) {
+            $this->info('Updating for '.$currency_code);
+            Currency::setBaseCurrency($currency_code);
+            Currency::updateRates();
+        }
+        $this->output->writeln("<info>Update complete</info>");
     }
 }
