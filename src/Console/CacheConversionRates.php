@@ -8,6 +8,7 @@ namespace Msonowal\Laraxchange\Console;
 
 use Illuminate\Console\Command;
 use Msonowal\Laraxchange\Facades\Currency;
+use Illuminate\Support\Facades\Log;
 
 class CacheConversionRates extends Command
 {
@@ -29,12 +30,18 @@ class CacheConversionRates extends Command
      */
     public function fire()
     {
-        $this->output->write("Starting update for Currency API to cache...\n");
+        $msg = "Starting update for Currency API to cache...\n";
+        $this->output->write($msg);
+        Log::info($msg);
         foreach (getAvailableCurrencies() as $currency_code) {
-            $this->info('Updating for '.$currency_code);
+            $msg = 'Updating for '.$currency_code;
+            $this->info($msg);
+            Log::info($msg);
             Currency::setBaseCurrency($currency_code);
             Currency::updateRates();
         }
-        $this->output->writeln("<info>Update complete</info>");
+        $msg = "<info>Update complete</info>";
+        $this->output->writeln($msg);
+        Log::info($msg);
     }
 }
