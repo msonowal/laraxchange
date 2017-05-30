@@ -10,7 +10,7 @@ class SetDefaultUserCurrency
     public function handle($request, Closure $next)
     {
         $location   =   geoip()->getLocation();
-        Log::info($location);
+        Log::info($location->toArray());
         $currency   =   $location->currency;
 
         if ( is_null($currency) || $currency=='' ) {
