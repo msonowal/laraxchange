@@ -20,7 +20,7 @@ function isCurrencySupported(string $currency_code)
 function setUserCurrency($currency_code)
 {
     $currency_code  =   strtoupper($currency_code);
-    if ( !isCurrencySupported($currency_code) ) {
+    if (!isCurrencySupported($currency_code)) {
         $currency_code   =   getDefaultCurrency();
     }
     $key            =   config('currency.session_currency_key');
@@ -35,12 +35,12 @@ function getUserCurrencySymbol()
 {
     return getCurrencySymbol(getUserCurrency());
 }
-function getUserCurrencyValue($value, $ignore_decimals=true)
+function getUserCurrencyValue($value, $ignore_decimals = true)
 {
     $currency_code  =   getUserCurrency();
     return \Msonowal\Laraxchange\Facades\Currency::convertRate($value, $currency_code, $ignore_decimals);
 }
-function convertCurrency($value, $currency_code, $ignore_decimals=true)
+function convertCurrency($value, $currency_code, $ignore_decimals = true)
 {
     //this will convert base currency to specified currency
     return \Msonowal\Laraxchange\Facades\Currency::convertRate($value, $currency_code, $ignore_decimals);
@@ -48,7 +48,7 @@ function convertCurrency($value, $currency_code, $ignore_decimals=true)
 //TODO get user price value by determining from session
 function setDefaultCurrencyIfNotSet($currency)
 {
-    if ( is_null(getUserCurrency()) ) {
+    if (is_null(getUserCurrency())) {
         setUserCurrency($currency);
     }
 }

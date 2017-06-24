@@ -12,13 +12,13 @@ class Currency
     public $api_url;
     public $cache_expiry;
 
-    public function __construct($base_currency=null)
+    public function __construct($base_currency = null)
     {
         $this->client           =   new Client();
         $this->cache_expiry     =   config('currency.cache_expiry');
         $this->cache_key        =   config('currency.cache_key');
         $this->setBaseCurrency($base_currency);
-        if ( !$this->isRatesSameAsBaseCurrency() ) {
+        if (!$this->isRatesSameAsBaseCurrency()) {
             $this->updateRates();
         }
         //saveInputs
@@ -40,9 +40,9 @@ class Currency
     {
         return self::DEFAULT_API_URL.$this->base_currency;
     }
-    public function setBaseCurrency($currency_code=null)
+    public function setBaseCurrency($currency_code = null)
     {
-        $this->base_currency    =   strtoupper( is_null($currency_code) ? config('currency.base_currency') : $currency_code );
+        $this->base_currency    =   strtoupper(is_null($currency_code) ? config('currency.base_currency') : $currency_code);
     }
     public function getBaseCurrency()
     {
@@ -61,7 +61,7 @@ class Currency
         //cache([$this->getCacheKey() => $rates], $this->cache_expiry);
         $this->rates  =   Cache::remember($this->getCacheKey(), $this->cache_expiry, function () {
                             return $this->getLiveRates();
-                        });
+        });
     }
     public function setRates($rates)
     {
@@ -69,12 +69,12 @@ class Currency
     }
     public function getRates()
     {
-        if ( is_null($this->rates) ) {
+        if (is_null($this->rates)) {
             $this->rates  =   Cache::remember($this->getCacheKey(), $this->cache_expiry, function () {
                                 return $this->getLiveRates();
-                            });
+            });
         }
-        if ( !$this->isRatesSameAsBaseCurrency() ) {
+        if (!$this->isRatesSameAsBaseCurrency()) {
             $this->updateRates();
         }
         //TODO code to updated the rates property via API for the base currency property and then return the rate by recursively calling this method;
@@ -87,7 +87,7 @@ class Currency
     }
     public function isRatesSameAsBaseCurrency() : bool
     {
-        if ( is_null($this->rates) ) {
+        if (is_null($this->rates)) {
             $this->updateRates();
             return  $this->isRatesSameAsBaseCurrency();
         }
@@ -96,7 +96,7 @@ class Currency
     public function getConversionRate(string $currency_code)
     {
         $currency_code      =   strtoupper($currency_code);
-        if( $this->getRates()->base == $currency_code ) {
+        if ($this->getRates()->base == $currency_code) {
             return 1;
         }
         return $this->getRates()->rates->{$currency_code};
@@ -110,7 +110,7 @@ class Currency
      * @param int $round if decimals are not ignored then it will round up the value to specified by default is 2
      * @return float if
      */
-    public function convertRate($value, string $currency_code, bool $ignore_decimals=true, $round=2)
+    public function convertRate($value, string $currency_code, bool $ignore_decimals = true, $round = 2)
     {
         if ($ignore_decimals) {
             $original   =   $value;
