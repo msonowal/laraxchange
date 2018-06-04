@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Cache;
 class Currency
 {
     private $client, $base_currency, $cache_key, $rates , $api_key;
-    const DEFAULT_API_URL       =   'http://api.fixer.io/latest?';
+    const DEFAULT_API_URL       =   'http://data.fixer.io/api/latest?';
     public $api_url;
     public $cache_expiry;
 
