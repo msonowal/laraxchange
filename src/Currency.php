@@ -7,16 +7,17 @@ use Illuminate\Support\Facades\Cache;
 
 class Currency
 {
-    private $client, $base_currency, $cache_key, $rates;
-    const DEFAULT_API_URL       =   'http://api.fixer.io/latest?base=';
+    private $client, $base_currency, $cache_key, $rates , $api_key;
+    const DEFAULT_API_URL       =   'http://api.fixer.io/latest?';
     public $api_url;
     public $cache_expiry;
 
     public function __construct($base_currency = null)
-    {
+    {   
         $this->client           =   new Client();
         $this->cache_expiry     =   config('currency.cache_expiry');
         $this->cache_key        =   config('currency.cache_key');
+        $this->api_key        =   config('currency.api_key');
         $this->setBaseCurrency($base_currency);
         if (!$this->isRatesSameAsBaseCurrency()) {
             $this->updateRates();
@@ -38,7 +39,7 @@ class Currency
     }
     public function getApiUrl()
     {
-        return self::DEFAULT_API_URL.$this->base_currency;
+        return self::DEFAULT_API_URL.'&access_key='.$this->api_key.'&base='.$this->base_currency;
     }
     public function setBaseCurrency($currency_code = null)
     {
