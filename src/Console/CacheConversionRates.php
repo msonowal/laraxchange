@@ -28,7 +28,7 @@ class CacheConversionRates extends Command
     /**
      * Execute the console command.
      */
-    public function fire()
+    public function handle()
     {
         $msg = "Starting update for Currency API to cache...\n";
         $this->output->write($msg);
